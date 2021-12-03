@@ -209,7 +209,7 @@ chkconfig sshd on
 
 # install dropbear
 yum -y install dropbear
-echo "OPTIONS=\"-p 80 -p 109 -p 110 -p 443 -b /etc/pesan\"" > /etc/sysconfig/dropbear
+echo "OPTIONS=\"-p 444 -p550 -b /etc/pesan\"" > /etc/sysconfig/dropbear
 echo "/bin/false" >> /etc/shells
 echo "PIDFILE=/var/run/dropbear.pid" >> /etc/init.d/dropbear
 service dropbear restart
