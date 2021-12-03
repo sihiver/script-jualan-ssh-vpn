@@ -97,7 +97,7 @@ chkconfig nginx on
 chkconfig php-fpm on
 
 # install essential package
-yum -y install rrdtool screen iftop htop nmap bc nethogs openvpn vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
+yum -y install rrdtool screen iftop htop nmap bc nethogs vnstat ngrep mtr git zsh mrtg unrar rsyslog rkhunter mrtg net-snmp net-snmp-utils expect nano bind-utils
 yum -y groupinstall 'Development Tools'
 yum -y install cmake
 yum -y --enablerepo=rpmforge install axel sslh ptunnel unrar
@@ -143,19 +143,19 @@ service nginx restart
 # if [ "$OS" == "x86_64" ]; then
 #   wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/1194-centos64.conf"
 # fi
-# wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/iptables.up.rules"
-# sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
-# sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
-# MYIP=`curl icanhazip.com`;
-# MYIP2="s/xxxxxxxxx/$MYIP/g";
-# sed -i $MYIP2 /etc/iptables.up.rules;
-# sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
-# iptables-restore < /etc/iptables.up.rules
-# sysctl -w net.ipv4.ip_forward=1
-# sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/iptables.up.rules"
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
+MYIP=`curl icanhazip.com`;
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+sed -i $MYIP2 /etc/iptables.up.rules;
+sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
+iptables-restore < /etc/iptables.up.rules
+sysctl -w net.ipv4.ip_forward=1
+sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
 # service openvpn restart
 # chkconfig openvpn on
-# cd
+cd
 
 # # configure openvpn client config
 # cd /etc/openvpn/
@@ -280,7 +280,7 @@ wget -O userlist "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-v
 wget -O trial "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/user-trial.sh"
 echo "cat /root/log-install.txt" | tee info
 echo "speedtest --share" | tee speedtest
-wget -O /root/chkrootkit.tar.gz ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit.tar.gz
+wget -O /root/chkrootkit.tar.gz http://www.spenneberg.org/chkrootkit-mirror/files/chkrootkit.tar.gz
 tar zxf /root/chkrootkit.tar.gz -C /root/
 rm -f /root/chkrootkit.tar.gz
 mv /root/chk* /root/chkrootkit
