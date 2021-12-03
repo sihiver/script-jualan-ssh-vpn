@@ -52,10 +52,10 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.loca
 yum -y install wget curl
 
 # setting repo
-wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-rpm -Uvh epel-release-6-8.noarch.rpm
-rpm -Uvh remi-release-6.rpm
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh epel-release-latest-7.noarch.rpm
+rpm -Uvh remi-release-7.rpm
 
 if [ "$OS" == "x86_64" ]; then
   wget https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/app/rpmforge.rpm
@@ -136,39 +136,39 @@ service php-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.zip "https://github.com/khairilg/script-jualan-ssh-vpn/raw/master/conf/openvpn-key.zip"
-cd /etc/openvpn/
-unzip openvpn.zip
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/1194-centos.conf"
-if [ "$OS" == "x86_64" ]; then
-  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/1194-centos64.conf"
-fi
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/iptables.up.rules"
-sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
-sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
-MYIP=`curl icanhazip.com`;
-MYIP2="s/xxxxxxxxx/$MYIP/g";
-sed -i $MYIP2 /etc/iptables.up.rules;
-sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
-iptables-restore < /etc/iptables.up.rules
-sysctl -w net.ipv4.ip_forward=1
-sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
-service openvpn restart
-chkconfig openvpn on
-cd
+# wget -O /etc/openvpn/openvpn.zip "https://github.com/khairilg/script-jualan-ssh-vpn/raw/master/conf/openvpn-key.zip"
+# cd /etc/openvpn/
+# unzip openvpn.zip
+# wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/1194-centos.conf"
+# if [ "$OS" == "x86_64" ]; then
+#   wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/1194-centos64.conf"
+# fi
+# wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/conf/iptables.up.rules"
+# sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
+# sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
+# MYIP=`curl icanhazip.com`;
+# MYIP2="s/xxxxxxxxx/$MYIP/g";
+# sed -i $MYIP2 /etc/iptables.up.rules;
+# sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
+# iptables-restore < /etc/iptables.up.rules
+# sysctl -w net.ipv4.ip_forward=1
+# sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+# service openvpn restart
+# chkconfig openvpn on
+# cd
 
-# configure openvpn client config
-cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/openvpn.conf"
-sed -i $MYIP2 /etc/openvpn/client.ovpn;
-#PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-useradd -g 0 -d /root/ -s /bin/bash $dname
-echo $dname:$dname"@2017" | chpasswd
-echo $dname > pass.txt
-echo $dname"@2017" >> pass.txt
-tar cf client.tar client.ovpn pass.txt
-cp client.tar /home/vps/public_html/
-cp client.ovpn /home/vps/public_html/
+# # configure openvpn client config
+# cd /etc/openvpn/
+# wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/openvpn.conf"
+# sed -i $MYIP2 /etc/openvpn/client.ovpn;
+# #PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
+# useradd -g 0 -d /root/ -s /bin/bash $dname
+# echo $dname:$dname"@2017" | chpasswd
+# echo $dname > pass.txt
+# echo $dname"@2017" >> pass.txt
+# tar cf client.tar client.ovpn pass.txt
+# cp client.tar /home/vps/public_html/
+# cp client.ovpn /home/vps/public_html/
 
 # install badvpn
 cd
