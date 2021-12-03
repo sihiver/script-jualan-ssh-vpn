@@ -52,22 +52,22 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.loca
 yum -y install wget curl
 
 # setting repo
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-rpm -Uvh epel-release-latest-7.noarch.rpm
-rpm -Uvh remi-release-7.rpm
+# wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+# rpm -Uvh epel-release-latest-7.noarch.rpm
+# rpm -Uvh remi-release-7.rpm
 
-if [ "$OS" == "x86_64" ]; then
-  wget https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/app/rpmforge.rpm
-  rpm -Uvh rpmforge.rpm
-else
-  wget https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/app/rpmforge.rpm
-  rpm -Uvh rpmforge.rpm
-fi
+# if [ "$OS" == "x86_64" ]; then
+#   wget https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/app/rpmforge.rpm
+#   rpm -Uvh rpmforge.rpm
+# else
+#   wget https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/app/rpmforge.rpm
+#   rpm -Uvh rpmforge.rpm
+# fi
 
-sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
-sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
-rm -f *.rpm
+# sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
+# sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
+# rm -f *.rpm
 
 # remove unused
 yum -y remove sendmail;
