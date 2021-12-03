@@ -162,10 +162,10 @@ cd
 # wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/khairilg/script-jualan-ssh-vpn/master/openvpn.conf"
 # sed -i $MYIP2 /etc/openvpn/client.ovpn;
 # #PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-# useradd -g 0 -d /root/ -s /bin/bash $dname
-# echo $dname:$dname"@2017" | chpasswd
-# echo $dname > pass.txt
-# echo $dname"@2017" >> pass.txt
+useradd -g 0 -d /root/ -s /bin/bash $dname
+echo $dname:$dname"@2017" | chpasswd
+echo $dname > pass.txt
+echo $dname"@2021" >> pass.txt
 # tar cf client.tar client.ovpn pass.txt
 # cp client.tar /home/vps/public_html/
 # cp client.ovpn /home/vps/public_html/
@@ -242,7 +242,7 @@ chkconfig squid on
 
 # install webmin
 cd
-wget http://prdownloads.sourceforge.net/webadmin/webmin-1.831-1.noarch.rpm
+wget https://webmin.mirror.somersettechsolutions.co.uk/yum/webmin-1.700-1.noarch.rpm
 yum -y install perl perl-Net-SSLeay openssl perl-IO-Tty
 rpm -U webmin*
 rm -f webmin*
